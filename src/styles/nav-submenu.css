@@ -1,0 +1,168 @@
+/*
+ * [nav-submenu] (src/components/navSubmenu.js): the desktop navbar dropdown.
+ * The panel is hidden until opened (the script opens it; without the script,
+ * hover / keyboard focus still do). The label sits inside the panel's top
+ * left and turns dark on the white panel while it's open; the arrow flips. The highlight glides between the rows and
+ * only the highlighted row shows its subtext. Desktop and tablet — below 768px
+ * the panel is the phone menu's inline accordion (src/styles/mobile-menu.css).
+ */
+
+/* The rows' highlight (the script adds it): out of the layout and unseen
+   unless the desktop dropdown shows it. */
+[nav-submenu] [data-submenu-pill] {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  [nav-submenu] {
+    --submenu-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [nav-submenu] > :last-child,
+  [nav-submenu] [data-submenu-panel] {
+    visibility: hidden;
+  }
+
+  [nav-submenu]:not([data-submenu-ready]):hover > :last-child,
+  [nav-submenu]:not([data-submenu-ready]):focus-within > :last-child,
+  [nav-submenu]:not([data-submenu-ready]):hover [data-submenu-panel],
+  [nav-submenu]:not([data-submenu-ready]):focus-within [data-submenu-panel] {
+    visibility: visible;
+  }
+
+  /* The script animates the panel (Webflow's own transition would drag it
+     behind) and draws its shadow round the opening window instead. */
+  [nav-submenu][data-submenu-ready] > :last-child,
+  [nav-submenu][data-submenu-ready] [data-submenu-panel] {
+    transition: none;
+    box-shadow: none;
+  }
+
+  [nav-submenu][data-submenu-active] {
+    filter: var(--submenu-shadow, none);
+  }
+
+  /* With the nav's glide pill as the body, the panel is see-through: the pill
+     behind it is its colour and its shadow. */
+  [nav-submenu][data-submenu-morph] > :last-child,
+  [nav-submenu][data-submenu-morph] [data-submenu-panel] {
+    background-color: transparent;
+  }
+
+  [nav-submenu][data-submenu-morph][data-submenu-active] {
+    filter: none;
+  }
+
+  /* The label, above the panel. Dark the moment it opens (no white on white
+     as the panel appears); back to Webflow's colour as it closes. */
+  [nav-submenu] > :first-child,
+  [nav-submenu] [data-submenu-toggle] {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* The label's box (where the nav's glide highlight sits, and the panel
+     opens from) even on both sides: the link's right padding goes after the
+     arrow instead of before it. (Padding is Webflow's: set it there.) */
+  /* [nav-submenu] > :first-child,
+  [nav-submenu] [data-submenu-toggle] {
+    padding-right: var(--_spacing---12, 0.75rem);
+  }
+
+  [nav-submenu] > :first-child > a,
+  [nav-submenu] [data-submenu-toggle] > a {
+    padding-right: 0;
+  } */
+
+  [nav-submenu] > :first-child,
+  [nav-submenu] > :first-child *,
+  [nav-submenu] [data-submenu-toggle],
+  [nav-submenu] [data-submenu-toggle] * {
+    transition:
+      color 0.3s var(--submenu-ease),
+      opacity 0.2s;
+  }
+
+  [nav-submenu][data-submenu-open] > :first-child,
+  [nav-submenu][data-submenu-open] > :first-child *,
+  [nav-submenu][data-submenu-open] [data-submenu-toggle],
+  [nav-submenu][data-submenu-open] [data-submenu-toggle] * {
+    color: var(--dark, #0b0b0b);
+    opacity: 1;
+    transition: none;
+  }
+
+  [nav-submenu] > :first-child svg,
+  [nav-submenu] [data-submenu-toggle] svg {
+    transition:
+      transform 0.45s var(--submenu-ease),
+      color 0.3s var(--submenu-ease);
+  }
+
+  [nav-submenu][data-submenu-open] > :first-child svg,
+  [nav-submenu][data-submenu-open] [data-submenu-toggle] svg {
+    transform: rotate(180deg);
+  }
+
+  /* Closing: the label turns back at once as the panel's edge passes it
+     (the arrow still turns). */
+  [nav-submenu][data-submenu-active]:not([data-submenu-open]) > :first-child,
+  [nav-submenu][data-submenu-active]:not([data-submenu-open]) > :first-child *,
+  [nav-submenu][data-submenu-active]:not([data-submenu-open]) [data-submenu-toggle],
+  [nav-submenu][data-submenu-active]:not([data-submenu-open]) [data-submenu-toggle] * {
+    transition: none;
+  }
+
+  [nav-submenu][data-submenu-active]:not([data-submenu-open]) > :first-child svg,
+  [nav-submenu][data-submenu-active]:not([data-submenu-open]) [data-submenu-toggle] svg {
+    transition: transform 0.45s var(--submenu-ease);
+  }
+
+  /* The rows: the highlight glides behind them (instead of each row's own
+     hover background), and as it opens they rise into place from below their
+     own edge. */
+  [nav-submenu] [data-submenu-pill] {
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: var(--grey--50, #f5f5f5);
+    border-radius: var(--_border-radius---2, 0.125rem);
+  }
+
+  [nav-submenu][data-submenu-ready] [data-submenu-row] > a {
+    background-color: transparent;
+  }
+
+  [nav-submenu][data-submenu-entering] [data-submenu-row] {
+    overflow: hidden;
+  }
+
+  [nav-submenu][data-submenu-ready] [data-submenu-current] > a {
+    opacity: 1;
+  }
+
+  /* The subtext shows on the highlighted row only: it rises into its line
+     from just below it, as if from behind a mask (moving down by its own
+     height while clipped by as much — the two in step), and sinks back
+     out of it, quicker — and from the moment the highlight moves on, so
+     the rows passed over don't keep theirs. */
+  [nav-submenu][data-submenu-ready] [data-submenu-row] > a > :last-child:not(:first-child) {
+    /* Declared at rest too, so the clip animates (none ↔ inset() can't). */
+    clip-path: inset(0 0 0 0);
+    transition:
+      translate 0.55s var(--submenu-ease),
+      clip-path 0.55s var(--submenu-ease);
+  }
+
+  [nav-submenu][data-submenu-ready]
+    [data-submenu-row]:not([data-submenu-current])
+    > a
+    > :last-child:not(:first-child) {
+    translate: 0 100%;
+    clip-path: inset(0 0 100% 0);
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+}

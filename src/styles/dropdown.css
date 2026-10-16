@@ -1,0 +1,221 @@
+/* Hide before the lazy-loaded controller runs, including authored .open states. */
+:is(.dropdown, [dropdown]) :is(.dropdown-body, [dropdown-body]) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] {
+  --dropdown-ease: var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1));
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-head, [dropdown-head]) {
+  position: relative;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* An inset border signals open/filtered categories without changing their size. */
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-head, [dropdown-head])::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms var(--dropdown-ease);
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready]:is(
+    .open,
+    :has(input[type='radio']:checked:not([fs-list-value=''])),
+    :has(input[type='checkbox']:checked)
+  )
+  :is(.dropdown-head, [dropdown-head])::after {
+  opacity: 1;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-head, [dropdown-head]):active {
+  opacity: 0.75;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-head, [dropdown-head]):focus-visible,
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-body, [dropdown-body]):focus-visible,
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-body, [dropdown-body]) :focus-visible,
+:is(.dropdown, [dropdown])[data-dropdown-ready] label:has(input:focus-visible) {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Only placement, sizing and state override Webflow; its surface styles remain. */
+:where(
+  :is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-body, [dropdown-body])[popover]
+) {
+  /* Remove the browser's popover surface at zero specificity; Webflow wins. */
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-body, [dropdown-body])[popover] {
+  position: fixed;
+  inset: auto;
+  inset-inline-start: var(--dropdown-x, 0px);
+  inset-block-start: var(--dropdown-y, 0px);
+  margin: 0;
+  inline-size: max-content;
+  min-inline-size: var(--dropdown-min-width, 0px);
+  max-inline-size: min(32rem, var(--dropdown-max-width, calc(100dvw - 24px)));
+  block-size: auto;
+  min-block-size: 0;
+  max-block-size: var(--dropdown-max-height, calc(100dvh - 24px));
+  box-sizing: border-box;
+  overflow: auto;
+  overscroll-behavior: contain;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  opacity: 0;
+  transform: none;
+  translate: none;
+  clip-path: none;
+  transform-origin: var(--dropdown-origin, 50% 0%);
+  transition: none;
+}
+
+/* Webflow's display:block would otherwise override the popover's UA hidden rule. */
+:is(.dropdown, [dropdown])[data-dropdown-ready]
+  :is(.dropdown-body, [dropdown-body])[popover]:not(:popover-open) {
+  display: none;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready][data-dropdown-positioned]
+  :is(.dropdown-body, [dropdown-body]):popover-open {
+  display: var(--dropdown-display, block);
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] .dropdown-arrow {
+  transform: rotate(0deg);
+  transition: none;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready].open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Undo only the visually hidden control rule, keeping native focus and selection. */
+:is(.dropdown, [dropdown])[data-dropdown-ready] label {
+  position: relative;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready]
+  label
+  :is(input[type='radio'], input[type='checkbox']).hide {
+  display: block !important;
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+@media (pointer: coarse) {
+  /* :is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-head, [dropdown-head]),
+  :is(.dropdown, [dropdown])[data-dropdown-ready]
+    :is(.dropdown-body, [dropdown-body])
+    :is(label, button, a[href], select, input:not(.hide)) {
+    min-block-size: 44px;
+    font-size: max(1em, 14px);
+    touch-action: manipulation;
+  } */
+
+  /* :is(.dropdown, [dropdown])[data-dropdown-ready] :is(.dropdown-body, [dropdown-body])[popover] {
+    min-inline-size: min(20rem, var(--dropdown-max-width, calc(100dvw - 24px)));
+  }
+
+  :is(.dropdown, [dropdown])[data-dropdown-ready]
+    :is(.dropdown-body, [dropdown-body])
+    :is(input:not(.hide), textarea, select) {
+    font-size: max(1em, 16px);
+  } */
+
+  :is(.dropdown, [dropdown])[data-dropdown-ready] label {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(.dropdown, [dropdown])[data-dropdown-ready]:not([data-dropdown-instant])
+    :is(.dropdown-body, [dropdown-body])[popover] {
+    transform: scale(0.97);
+    transition:
+      opacity 180ms var(--dropdown-ease),
+      transform 180ms var(--dropdown-ease),
+      display 180ms allow-discrete,
+      overlay 180ms allow-discrete,
+      visibility 180ms;
+  }
+
+  :is(.dropdown, [dropdown])[data-dropdown-ready][data-dropdown-positioned]:not(
+      [data-dropdown-instant]
+    )
+    :is(.dropdown-body, [dropdown-body]):popover-open {
+    transform: scale(1);
+  }
+
+  :is(.dropdown, [dropdown])[data-dropdown-ready]:not([data-dropdown-instant]) .dropdown-arrow {
+    transition: transform 180ms var(--dropdown-ease);
+  }
+
+  @starting-style {
+    :is(.dropdown, [dropdown])[data-dropdown-ready][data-dropdown-positioned]:not(
+        [data-dropdown-instant]
+      )
+      :is(.dropdown-body, [dropdown-body]):popover-open {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+  }
+}
+
+/* Each option row, including nested CMS rows: full width, the whole row clickable. */
+:is(.dropdown, [dropdown])[data-dropdown-ready] .dropdown-input {
+  display: flex;
+  align-items: center;
+  /* gap: 0.75em; */
+  inline-size: 100%;
+  box-sizing: border-box;
+  /* min-block-size: 1.25em; */
+  /* padding-inline-end: 0.25em; */
+  cursor: pointer;
+  transition: color 140ms var(--dropdown-ease);
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] .dropdown-input > .w-form-label {
+  min-inline-size: 0;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready]
+  .dropdown-items
+  > :is(.w-dyn-list, .w-dyn-item, .dropdown-input) {
+  align-self: stretch;
+}
+
+:is(.dropdown, [dropdown])[data-dropdown-ready] .dropdown-input:active {
+  opacity: 0.75;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(.dropdown, [dropdown])[data-dropdown-ready] .dropdown-input:hover {
+    color: var(--_theme---accent--primary, currentColor);
+  }
+}
+
+/* The selected option is marked by its colour alone (no marker beside it). */
+:is(.dropdown, [dropdown])[data-dropdown-ready] .dropdown-input:has(input[type='radio']:checked) {
+  color: var(--_theme---accent--primary, currentColor);
+}

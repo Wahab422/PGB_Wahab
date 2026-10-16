@@ -1,0 +1,24 @@
+/*
+ * [data-cursor-zone] (src/components/cursorButton.js): while the cursor
+ * button is on (mouse only — the script sets the attribute), the normal
+ * pointer is hidden over the zones, and their in-place button is see-through
+ * — the pointer has become it. It stays in place for the keyboard and shows
+ * again when tabbed to.
+ */
+@media (hover: hover) and (pointer: fine) {
+  [data-cursor-button-ready] [data-cursor-zone],
+  [data-cursor-button-ready] [data-cursor-zone] * {
+    cursor: none;
+  }
+  [data-cursor-button-ready] [data-cursor-zone] [data-cursor-button]:not(:has(:focus-visible)) {
+    opacity: 0;
+  }
+  /* …and doesn't bring the normal pointer back over it (a project card's
+     button asks for one — src/styles/project-hover.css). */
+  [data-cursor-button-ready]
+    [data-cursor-zone]
+    [data-cursor-button]:not(:has(:focus-visible))
+    :is(a[href], button) {
+    cursor: none;
+  }
+}

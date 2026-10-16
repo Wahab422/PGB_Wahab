@@ -1,0 +1,38 @@
+/*
+ * The navbar's mobile menu (src/components/mobileMenu.js). Webflow keeps the
+ * panel display: none on phones; it's shown while open (and while it closes),
+ * scrolling itself if it's taller than the screen. The button's label is two
+ * stacked lines in a clipped box, rolled between "Menu" and "Close".
+ */
+@media screen and (max-width: 767px) {
+  [nav-menu][nav-menu-shown] {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* The nav's hover pill (src/global/navbar.js) is a desktop look: in the
+     phone menu a mouse would size it over a whole dropdown. */
+  [nav-menu] [data-nav-hover] {
+    visibility: hidden !important;
+  }
+
+  [menu-btn],
+  [nav-menu] [nav-submenu] > :first-child {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+[menu-btn-labels] {
+  display: inline-grid;
+  justify-items: end;
+  overflow: clip;
+  vertical-align: top;
+}
+
+[menu-btn-labels] > span {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}

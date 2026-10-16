@@ -1,0 +1,54 @@
+/* Resources page. global/resourceLists.js hides empty category rows and
+   products with [hidden], owns the count, and runs the filter transition with
+   the Web Animations API — none of it lives in Webflow. */
+[data-resources] [data-resource-product][hidden],
+[data-resources] [data-resource-section][hidden],
+[data-resources] [data-resource-empty][hidden] {
+  display: none !important;
+}
+
+/* Nothing matches: drop the list (and its bottom padding) so the empty
+   message sits directly under the filters. */
+[data-resources] .for-res-list:not(:has([data-resource-product]:not([hidden]))) {
+  display: none;
+}
+
+/* Keeps the page (and the footer) where it was instead of collapsing. */
+[data-resources] [data-resource-empty] {
+  /* min-block-size: 50svh; */
+  align-content: center;
+}
+
+/* Hidden until ready by the site-wide head snippet (docs/resources-guide.md). */
+[data-resources] [data-resource-count] {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 320ms var(--ease, cubic-bezier(0.22, 0.6, 0.36, 1));
+}
+
+/* The entrance (src/animations/resourceEntrance.js): the filters, photos,
+   category labels and file rows stay hidden until it's set up, so they don't
+   show and then vanish to rise in — with a 4s failsafe in case it never
+   runs — and then until each is first on screen. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-resources]:not([data-resources-entrance])
+    :is(
+      [fs-list-element='filters'],
+      [data-resource-product] img,
+      [data-resource-section] h3,
+      [data-resource-id]
+    ) {
+    opacity: 0;
+    animation: resource-entrance-failsafe 0s linear 4s forwards;
+  }
+
+  [data-resources] [data-resource-pending] {
+    opacity: 0;
+  }
+}
+
+@keyframes resource-entrance-failsafe {
+  to {
+    opacity: 1;
+  }
+}

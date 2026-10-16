@@ -1,0 +1,59 @@
+/*
+ * The page intro (src/animations/pageIntro.js): while it plays, its
+ * [data-page-intro] captions (hidden in Webflow) are laid out across the
+ * middle of the screen, behind the hero rising over them — left caption,
+ * the wordmark exactly in the middle, right caption. On phones they stack,
+ * the wordmark between. The page can't be scrolled until the nav is in.
+ */
+html[data-page-intro-playing] [data-page-intro] {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  /* gap: 2rem; */
+  /* padding: 0 var(--_spacing---global-2, 1.75rem); */
+  pointer-events: none;
+}
+
+html[data-page-intro-playing] [data-page-intro] > :first-child {
+  justify-self: start;
+}
+
+html[data-page-intro-playing] [data-page-intro] > :last-child {
+  justify-self: end;
+  text-align: right;
+}
+
+/* The wordmark's mask: room above and below, so nothing is cut at rest. */
+[data-page-intro-mark] {
+  overflow: hidden;
+  padding-block: 0.25rem;
+  margin-block: -0.25rem;
+}
+
+[data-page-intro-mark] > * {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  html[data-page-intro-playing] [data-page-intro] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* gap: 1.5rem; */
+    text-align: center;
+  }
+
+  html[data-page-intro-playing] [data-page-intro] > :last-child {
+    text-align: center;
+  }
+}
+
+html[data-page-intro-locked] {
+  overflow: hidden;
+}

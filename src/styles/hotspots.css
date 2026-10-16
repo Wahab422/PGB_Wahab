@@ -1,0 +1,121 @@
+/*
+ * [data-hotspots] (src/components/hotspots.js): each hotspot is hidden until
+ * the script has placed it (they'd show piled up on the Webflow position
+ * first), then centred on its point. A card opens from its +, rightwards and
+ * down unless the script flips it to stay on the photo.
+ */
+[data-hotspot]:not([data-hotspot-ready]) {
+  visibility: hidden;
+}
+
+[data-hotspot][data-hotspot-ready] {
+  translate: -50% -50%;
+}
+
+/* Its spot on the photo is cropped out of view (a narrow screen). */
+[data-hotspot][data-hotspot-outside] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+[data-hotspot][data-hotspot-open] {
+  z-index: 3;
+}
+
+[data-hotspot-ready] [data-hotspot-toggle],
+[data-hotspot-ready] [data-hotspot-close] {
+  cursor: pointer;
+}
+
+/* The card: closed (faded down a touch) / open. */
+[data-hotspot-ready] [data-hotspot-card] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(0.5rem);
+  transform-origin: top left;
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s ease,
+    visibility 0s linear 0.35s;
+}
+
+[data-hotspot-flip-x] [data-hotspot-card] {
+  left: auto;
+  right: 0;
+  transform-origin: top right;
+}
+
+[data-hotspot-flip-y] [data-hotspot-card] {
+  top: auto;
+  bottom: 100%;
+  transform: translateY(-0.5rem);
+}
+
+[data-hotspot-open] [data-hotspot-card] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-hotspot-ready] [data-hotspot-card] {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Another tab (category): the old hotspots shrink away, the new ones pop in,
+   one after another (the script sets the delay). */
+[data-hotspot][data-hotspot-leaving] {
+  animation: hotspot-out 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  pointer-events: none;
+}
+
+[data-hotspot][data-hotspot-entering] {
+  animation: hotspot-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--hotspot-delay, 0s) both;
+}
+
+@keyframes hotspot-out {
+  to {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+@keyframes hotspot-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+/* Position picker (?hotspots=edit). */
+[data-hotspots-edit] {
+  cursor: crosshair;
+}
+
+[data-hotspots-badge] {
+  position: absolute;
+  z-index: 4;
+  translate: -50% 1.1rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+  background: #000c;
+  color: #fff;
+  font:
+    11px/1.3 ui-monospace,
+    monospace;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+[data-hotspots-badge='picked'] {
+  translate: -50% -50%;
+  background: #e5482d;
+}

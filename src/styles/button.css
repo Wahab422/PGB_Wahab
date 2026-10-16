@@ -1,0 +1,28 @@
+/* Arrow button — see src/components/button.js. The button, its text and the
+   arrow (.btn-icon) are styled in Webflow; this only adds the layout the
+   optional label roll needs, and only on buttons holding the animated arrow
+   (svg[btn-animate-svg]) so the generic .label / .line names never restyle
+   Webflow classes used elsewhere. Sizes are Webflow's. */
+
+:where(a, button):has(svg[btn-animate-svg]) .label {
+  /* height: 0.625rem; */
+  overflow: hidden; /* one line visible; the aria-hidden copy rolls up into view */
+}
+
+:where(a, button):has(svg[btn-animate-svg]) .line {
+  display: block;
+  /* height: 0.9375rem; */
+  will-change: transform;
+}
+
+/* A button inside a card with a hover of its own (see src/components/
+   button.js) takes on its hover look while the card is hovered, as if the
+   pointer were on it. Webflow's secondary button is the variant with a hover
+   style (base and outline don't change); its values, matched by Webflow's
+   variant attribute. */
+:is([data-project-hover][data-hover-on], [data-btn-hover-area]:hover)
+  [data-wf--button--variant='secondary'] {
+  border-color: var(--_theme---secondary-button--hover-border);
+  background-color: var(--_theme---secondary-button--hover-bg);
+  color: var(--_theme---secondary-button--hover-text-color);
+}

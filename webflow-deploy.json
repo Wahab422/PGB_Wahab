@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "projectName": "vovi-scl",
+  "productionBranch": "main",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist"
+}

@@ -1,0 +1,29 @@
+/*
+ * [data-entrance] (src/animations/sectionEntrance.js): the pictures' zoom.
+ * The script only sets --entrance-scale on the section; the zoom lives on the
+ * `scale` property here, so a mask reveal clearing an <img>'s inline transform
+ * styles (src/utils/maskReveal.js) can't wipe it.
+ */
+[data-entrance] [data-entrance-picture] {
+  scale: var(--entrance-scale, 1);
+}
+
+/*
+ * The items stay hidden until the script has set up their rise
+ * (data-entrance-ready), so ones already on screen at load — a hero's text —
+ * don't show and then vanish first. Failsafe: if the script never runs, they
+ * appear on their own after 4s. Not under reduced motion — nothing animates
+ * then.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-entrance]:not([data-entrance-ready]) [data-entrance-item] {
+    visibility: hidden;
+    animation: entrance-failsafe 0s linear 4s forwards;
+  }
+}
+
+@keyframes entrance-failsafe {
+  to {
+    visibility: visible;
+  }
+}

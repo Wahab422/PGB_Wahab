@@ -1,0 +1,19 @@
+/*
+ * [data-split-text] (src/animations/splitText.js): keep the text hidden until
+ * the script has split it into lines, so it doesn't show, vanish and then rise
+ * in. Failsafe: if the script never gets there (blocked, errored), the text
+ * appears on its own after 4s. Not under reduced motion — the script leaves
+ * the text alone then, so it must never be hidden.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-split-text]:not([data-split-text-ready]) {
+    visibility: hidden;
+    animation: split-text-failsafe 0s linear 4s forwards;
+  }
+}
+
+@keyframes split-text-failsafe {
+  to {
+    visibility: visible;
+  }
+}

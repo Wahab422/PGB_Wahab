@@ -1,0 +1,123 @@
+/*
+ * [data-project-hover] (src/components/projectHover.js): the project card's
+ * title roll (its image hover is src/styles/image-hover.css). The script adds
+ * the layers and sets [data-hover-on] on the card; the motion is all here.
+ */
+
+/* Both lines of letters move up one line, in a wave. */
+[data-project-hover] [data-project-hover-roll] {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+[data-project-hover] [data-project-hover-line] {
+  display: block;
+  white-space: pre;
+}
+[data-project-hover] [data-project-hover-line='copy'] {
+  position: absolute;
+  left: 0;
+  top: 100%;
+}
+[data-project-hover] [data-project-hover-line] > span {
+  display: inline-block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); /* expo.out */
+  transition-delay: calc(var(--i) * 14ms);
+}
+[data-project-hover][data-hover-on] [data-project-hover-line] > span {
+  transform: translate3d(0, -100%, 0);
+}
+
+[data-project-hover] .project-block-fig {
+  --project-button-lift: 8px;
+  --project-button-ease: cubic-bezier(0.23, 1, 0.32, 1); /* strong ease-out */
+  position: relative;
+  overflow: clip;
+}
+
+/* Touch and the keyboard: the button sits at the image's centre. (Its size,
+   spacing and type are Webflow's.) */
+[data-project-hover] .project-block-fig [data-cursor-button] {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  /* padding: 16px; */
+  pointer-events: none;
+}
+
+[data-project-hover] .project-block-fig [data-cursor-button] > :is(a[href], button) {
+  width: max-content;
+  max-width: 100%;
+  /* min-height: 44px; */
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* A mouse: over the image the pointer itself becomes the button (the cursor
+     button — src/styles/cursor-button.css keeps this one see-through). This
+     one, centred, fades and lifts in for the keyboard. */
+  /* [data-project-hover] .project-block-fig [data-cursor-button] {
+    padding: 0;
+  } */
+
+  [data-project-hover] .project-block-fig [data-cursor-button] > :is(a[href], button) {
+    position: absolute;
+    inset: 50% 0 auto;
+    margin-inline: auto;
+    translate: 0 -50%;
+    opacity: 0;
+    transform: translateY(var(--project-button-lift)) scale(0.94);
+    pointer-events: none;
+    transition:
+      opacity 180ms var(--project-button-ease),
+      transform 180ms var(--project-button-ease);
+  }
+
+  [data-project-hover][data-hover-on]
+    .project-block-fig
+    [data-cursor-button]
+    > :is(a[href], button),
+  [data-project-hover]:has(:focus-visible)
+    .project-block-fig
+    [data-cursor-button]
+    > :is(a[href], button) {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition-duration: 320ms;
+  }
+
+  [data-project-hover]:has(:focus-visible)
+    .project-block-fig
+    [data-cursor-button]
+    > :is(a[href], button) {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-project-hover] .project-block-fig [data-cursor-button] > :is(a[href], button),
+  [data-project-hover][data-hover-on]
+    .project-block-fig
+    [data-cursor-button]
+    > :is(a[href], button) {
+    transform: none;
+    transition: opacity 150ms linear;
+  }
+  [data-project-hover]:has(:focus-visible)
+    .project-block-fig
+    [data-cursor-button]
+    > :is(a[href], button) {
+    transition: none;
+  }
+  [data-project-hover] [data-project-hover-line] > span {
+    transition: none;
+  }
+  [data-project-hover][data-hover-on] [data-project-hover-line] > span {
+    transform: none;
+  }
+}

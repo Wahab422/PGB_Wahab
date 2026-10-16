@@ -1,0 +1,22 @@
+/*
+ * [data-fade] (src/animations/fade.js): hidden until the script has set up its
+ * fade, so it doesn't show and then vanish first — e.g. through a page
+ * transition's opening window. Failsafe: if the script never runs, it appears
+ * on its own after 4s. Not under reduced motion, nor inside a modal or a
+ * [data-timeline-reveal] step (those are left to their own code).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :is([data-fade], [anim-element]):not([data-fade-ready]):not(
+      [data-modal-name] *,
+      [data-timeline-reveal] *
+    ) {
+    visibility: hidden;
+    animation: fade-failsafe 0s linear 4s forwards;
+  }
+}
+
+@keyframes fade-failsafe {
+  to {
+    visibility: visible;
+  }
+}

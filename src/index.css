@@ -1,0 +1,170 @@
+@import './styles/mask-slider.css';
+@import './styles/tabs.css';
+@import './styles/button.css';
+@import './styles/split-text.css';
+@import './styles/stagger-in.css';
+@import './styles/fade.css';
+@import './styles/zoom-in.css';
+@import './styles/page-intro.css';
+@import './styles/section-entrance.css';
+@import './styles/slide-cursor.css';
+@import './styles/cursor-button.css';
+@import './styles/image-hover.css';
+@import './styles/project-hover.css';
+@import './styles/timeline-reveal.css';
+@import './styles/nav-hover.css';
+@import './styles/nav-submenu.css';
+@import './styles/timeline-reveal.css';
+@import './styles/nav-hover.css';
+@import './styles/nav-submenu.css';
+@import './styles/sticky-button.css';
+@import './styles/hotspots.css';
+@import './styles/project-modal.css';
+@import './styles/mobile-menu.css';
+@import './styles/dropdown.css';
+@import './styles/resources.css';
+
+/* :focus {
+  outline: 2px solid var(--navy, #021a27) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px var(--white, #fff) !important;
+  scroll-margin-top: var(--nav-active-height, 100px);
+}
+
+@media (forced-colors: active) {
+  :focus {
+    outline: 2px solid Highlight !important;
+    box-shadow: none !important;
+  }
+} */
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--_z-indices---modal, 999) + 1);
+  padding: 0.75em 1.25em;
+  background: var(--white, #fff);
+  color: var(--navy, #021a27);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-100%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
+}
+
+@media screen and (min-width: 768px) {
+  .map-wrap .map-inner-wrap {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .map-wrap.expanded .map-inner-wrap {
+    transition-delay: 0.15s;
+  }
+
+  .map-wrap:not(.expanded) .map-inner-wrap {
+    transform: scale(0);
+  }
+
+  .map-wrap .map-content {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .map-wrap.expanded .map-content {
+    transition-delay: 0.25s;
+  }
+
+  .map-wrap:not(.expanded) .map-content {
+    transform: translateX(-100%);
+  }
+
+  .map-content .map-marker-category,
+  .map-content .map-marker-category > .text-color-grey,
+  .map-content .map-marker-item,
+  .map-content .line.is-bottom {
+    transition:
+      opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .map-wrap.expanded .map-content .map-marker-category,
+  .map-wrap.expanded .map-content .map-marker-category > .text-color-grey,
+  .map-wrap.expanded .map-content .map-marker-item,
+  .map-wrap.expanded .map-content .line.is-bottom {
+    transition-delay: var(--stagger-delay, 0s);
+  }
+
+  .map-wrap:not(.expanded) .map-content .map-marker-category,
+  .map-wrap:not(.expanded) .map-content .map-marker-category > .text-color-grey,
+  .map-wrap:not(.expanded) .map-content .map-marker-item,
+  .map-wrap:not(.expanded) .map-content .line.is-bottom {
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition-delay: 0s;
+  }
+
+  /* The last category has nothing after it, so its divider is unnecessary. */
+  .map-content .map-marker-category:last-child .line.is-bottom {
+    display: none;
+  }
+}
+
+.tabs-dot:not(.active) .tabs-dot-progress {
+  opacity: 0;
+}
+
+/* Pause/Play control injected into auto-advancing carousels, marquees and
+   slideshows (WCAG 2.2.2) — see src/utils/autoplayToggle.js. Only used when
+   the Webflow markup has no control of its own ([data-carousel-autoplay-toggle] /
+   [autoplay-toggle]); restyle freely. */
+.autoplay-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0.75rem 0 0 auto;
+  padding: 0;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.autoplay-toggle:hover {
+  opacity: 1;
+}
+
+/* People card whose profile is loading into the modal (handlePeopleModal.js
+   also sets aria-busy on it). */
+[data-people-name].is-loading {
+  cursor: progress;
+}
+
+/* Shown inside #map when Mapbox can't load (blocked, offline, no WebGL) —
+   see initMap() in src/pages/contact.js. */
+.map-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #f2f0eb;
+  color: inherit;
+  text-align: center;
+  text-decoration: underline;
+}
+
+[data-nav-wrap].is-scrolled .nav-btn.is-secondary {
+  background-color: var(--_theme---button-secondary--background) !important;
+  color: var(--text-grey) !important;
+  border-color: var(--border-beige) !important;
+}

@@ -1,0 +1,49 @@
+<!--
+  Webflow loader — paste into Site settings → Custom code → Footer code
+  (before </body>). This is the source of truth for that snippet.
+
+  - Loads the bundle from Vercel, or from the local dev server
+    (`pnpm dev`, http://127.0.0.1:3000) when the site is opened once with
+    ?devMode=true (?devMode=false switches back).
+  - The bundle is an ES module with code-split chunks (bin/build.js), so the
+    script MUST be type="module" — a classic script fails to parse it.
+    Module scripts are deferred automatically.
+-->
+<script>
+  (function () {
+    var LOCAL_SCRIPT = 'http://127.0.0.1:3000/index.js';
+    var LIVE_SCRIPT = 'https://bridgewall.vercel.app/';
+
+    var params = new URLSearchParams(window.location.search);
+
+    if (params.get('devMode') === 'true') {
+      localStorage.setItem('devMode', 'true');
+      params.delete('devMode');
+      var newQuery = params.toString();
+      var newUrl =
+        window.location.pathname + (newQuery ? '?' + newQuery : '') + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+    }
+
+    if (params.get('devMode') === 'false') {
+      localStorage.removeItem('devMode');
+      params.delete('devMode');
+      var q = params.toString();
+      var url = window.location.pathname + (q ? '?' + q : '') + window.location.hash;
+      window.history.replaceState({}, '', url);
+    }
+
+    var isDevMode = localStorage.getItem('devMode') === 'true';
+    var base = isDevMode ? LOCAL_SCRIPT : LIVE_SCRIPT;
+
+    var script = document.createElement('script');
+    script.src = base;
+    script.type = 'module';
+    document.body.appendChild(script);
+
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = base.replace(/\.js$/, '.css').replace(/\/$/, '/index.css');
+    document.head.appendChild(link);
+  })();
+</script>

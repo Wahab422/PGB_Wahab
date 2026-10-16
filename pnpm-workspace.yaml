@@ -1,0 +1,6 @@
+# Dependency install scripts pnpm may run. esbuild's postinstall only
+# re-checks its binary, which already arrives through the platform package
+# (@esbuild/<platform>), so it stays off; fsevents is macOS-only and unused.
+allowBuilds:
+  esbuild: false
+  fsevents: false

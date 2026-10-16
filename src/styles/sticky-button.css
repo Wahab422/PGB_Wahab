@@ -1,0 +1,45 @@
+/*
+ * [sticky-button-wrap] (src/components/stickyButton.js): the wrap sticks to
+ * the bottom of the screen and takes no room in the page (no height); its
+ * button sits above it, centred, so at the end of the page it rests just above
+ * where the wrap is, the bottom of <main>. (`html` outranks Webflow's own
+ * class on the wrap.) The button is hidden until the script has set it up; it
+ * then shows it once the first marked section comes up. Failsafe: if the
+ * script never runs, it appears on its own after 4s.
+ */
+html [sticky-button-wrap] {
+  position: sticky;
+  inset: auto 0 0;
+  height: 0;
+}
+
+html [sticky-button-wrap] > :is(a, button) {
+  position: absolute;
+  bottom: 1.5rem;
+  /* Showing, it opens out from its label to uncover the arrow. */
+  justify-content: flex-start;
+  overflow: clip;
+}
+
+[sticky-button-wrap]:not([sticky-button-ready]) > :is(a, button) {
+  visibility: hidden;
+  animation: sticky-button-failsafe 0s linear 4s forwards;
+}
+
+@keyframes sticky-button-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+/* The label's box, one line per label stacked in it; it clips them. */
+[sticky-button-labels] {
+  display: grid;
+  overflow: clip;
+}
+
+[sticky-button-labels] > * {
+  grid-area: 1 / 1;
+  justify-self: start;
+  white-space: nowrap;
+}

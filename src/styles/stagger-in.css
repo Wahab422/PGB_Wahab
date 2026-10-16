@@ -1,0 +1,20 @@
+/*
+ * [data-stagger-in] (src/animations/stagger.js): the container stays hidden
+ * until the script has set its items up, so they don't show and then vanish
+ * to rise in — e.g. through a page transition's opening window, which shows
+ * the new page before its code runs. Failsafe: if the script never gets
+ * there, it appears on its own after 4s. Not under reduced motion, nor inside
+ * a modal (the script leaves those alone).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :is([data-stagger-in], [anim-stagger]):not([data-stagger-in-ready]):not([data-modal-name] *) {
+    visibility: hidden;
+    animation: stagger-in-failsafe 0s linear 4s forwards;
+  }
+}
+
+@keyframes stagger-in-failsafe {
+  to {
+    visibility: visible;
+  }
+}

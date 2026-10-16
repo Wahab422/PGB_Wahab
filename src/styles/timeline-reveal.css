@@ -1,0 +1,52 @@
+/*
+ * src/animations/timelineReveal.js. Desktop: the ticks and line stay hidden
+ * until the script has set their start state (4s failsafe if it never runs).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-timeline-reveal]:not([data-timeline-reveal-ready]) .timeline-cuts-line,
+  [data-timeline-reveal]:not([data-timeline-reveal-ready]) .timeline-block-border {
+    visibility: hidden;
+    animation: timeline-reveal-failsafe 0s linear 4s forwards;
+  }
+}
+
+@keyframes timeline-reveal-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+/*
+ * Phone tabs (set by the script at ≤767px): the pill row scrolls and snaps a
+ * pill to the centre (the spacers let the first and last reach it); the steps
+ * stack in one cell, so hidden ones keep their width and the tallest sets the
+ * height.
+ */
+[data-timeline-tabs] .timeline-menu-btns {
+  align-self: stretch;
+  width: auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  user-select: none;
+}
+
+[data-timeline-tabs] .timeline-menu-btns::before,
+[data-timeline-tabs] .timeline-menu-btns::after {
+  content: '';
+  flex: 0 0 50%;
+}
+
+[data-timeline-tabs] .timeline-menu-btns > .tag {
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  cursor: pointer;
+}
+
+[data-timeline-tabs] .timeline {
+  display: grid;
+}
+
+[data-timeline-tabs] .timeline > .timeline-block {
+  grid-area: 1 / 1;
+}

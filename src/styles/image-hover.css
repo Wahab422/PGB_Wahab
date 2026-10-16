@@ -1,0 +1,37 @@
+/*
+ * [data-image-hover] (src/components/imageHover.js) — and the image of a
+ * [data-project-hover] card: the image pushes in, slowly, and a light shade
+ * fades over it. The script adds the layers and sets [data-hover-on] on the
+ * hover area; the motion is all here — transform and opacity transitions only.
+ */
+[data-image-hover-zoom-layer] {
+  overflow: hidden;
+  transform: scale(1);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); /* expo.out */
+  will-change: transform;
+}
+[data-hover-on] [data-image-hover-zoom-layer] {
+  transform: scale(var(--image-hover-zoom, 1.06));
+}
+
+[data-image-hover-shade-layer] {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgb(0 0 0 / var(--image-hover-shade, 0.14));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+[data-hover-on] [data-image-hover-shade-layer] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-image-hover-zoom-layer] {
+    transition: none;
+  }
+  [data-hover-on] [data-image-hover-zoom-layer] {
+    transform: none;
+  }
+}

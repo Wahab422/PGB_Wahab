@@ -1,0 +1,27 @@
+/*
+ * [data-project-modal] (src/components/projectModal.js): the project's panel
+ * fades up in once its page has loaded.
+ */
+[data-project-inner-enter] {
+  animation: project-inner-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes project-inner-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-project-inner-enter] {
+    animation-name: project-inner-fade;
+    animation-duration: 0.2s;
+  }
+
+  @keyframes project-inner-fade {
+    from {
+      opacity: 0;
+    }
+  }
+}

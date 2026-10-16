@@ -1,0 +1,20 @@
+/*
+ * [data-zoom-in] (src/animations/zoomIn.js): hidden until the script has set
+ * up its entrance, so it doesn't show and then vanish first. Failsafe: if the
+ * script never runs, it appears on its own after 4s. Not under reduced motion
+ * — nothing animates then. (A page with one on its first screen keeps the same
+ * rule in its head code, as this stylesheet arrives after the first paint.)
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-zoom-in]:not([data-zoom-in-ready]),
+  [data-hero-intro-image]:not([data-zoom-in-ready]) {
+    visibility: hidden;
+    animation: zoom-in-failsafe 0s linear 4s forwards;
+  }
+}
+
+@keyframes zoom-in-failsafe {
+  to {
+    visibility: visible;
+  }
+}

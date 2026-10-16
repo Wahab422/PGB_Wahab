@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$comment": "Webflow CMS schema for the Courses A-Z collection on the SCL site. Mirrors UT Austin's catalog subject directory (https://catalog.utexas.edu/general-information/coursesatoz/). Populated daily by scripts/sync-courses-a-z.ts.",
+  "site": {
+    "id": "6a155cbbc9c28f25a9dcaf1e",
+    "displayName": "SCL",
+    "shortName": "vovi-scl"
+  },
+  "collection": {
+    "id": "6a2960199bd2c50bb20fd020",
+    "displayName": "Courses A-Z",
+    "singularName": "Course Subject",
+    "slug": "courses-a-z",
+    "createdOn": "2026-06-10T13:01:13.127Z"
+  },
+  "fields": [
+    {
+      "id": "0af6b510f2b463087c5a2be2bcd05b78",
+      "slug": "name",
+      "displayName": "Name",
+      "type": "PlainText",
+      "isRequired": true,
+      "isBuiltIn": true,
+      "validations": { "maxLength": 256 },
+      "description": "Subject display name as shown in the UT catalog (e.g., \"Comparative Literature\", \"Accounting\")."
+    },
+    {
+      "id": "7d1fdf5fa960beaf70af169a2cc6bf8e",
+      "slug": "slug",
+      "displayName": "Slug",
+      "type": "PlainText",
+      "isRequired": true,
+      "isBuiltIn": true,
+      "validations": { "maxLength": 256 },
+      "description": "URL slug, sourced from UT's own subject code (e.g., \"c-l\", \"acc\", \"a-i\"). Stable identifier used by the sync script to upsert (find-by-slug → update, else create)."
+    },
+    {
+      "id": "4ed251d16daa200afbbe98af65c5b0b0",
+      "slug": "starting-letter",
+      "displayName": "Starting Letter",
+      "type": "Option",
+      "isRequired": true,
+      "helpText": "First letter of the subject name (A-Z). Used for alphabetical filtering and grouping.",
+      "options": [
+        { "id": "9c1b7e611ef51cff706ed756270beb94", "name": "A" },
+        { "id": "a270fa0f800b17af0f3d9274f4f1b2ad", "name": "B" },
+        { "id": "a878af93ea613f793ee810e679df2db0", "name": "C" },
+        { "id": "a5c2011f2595ab2c12de5a053747972b", "name": "D" },
+        { "id": "c4b5b597d72a0b907900fd35abb14b66", "name": "E" },
+        { "id": "8acf66bca1bee8138f12c73eaffd2371", "name": "F" },
+        { "id": "a63bdbeab624ff7ce96b071ad88197cd", "name": "G" },
+        { "id": "fe61dff3ca6d2a4725236f9018d6a38f", "name": "H" },
+        { "id": "7cff33df773736c8a32793e233f39416", "name": "I" },
+        { "id": "b49d4137071bacae5483c11f60873c1a", "name": "J" },
+        { "id": "62f617fdb1a0b2c489aa46dd5b96c6a0", "name": "K" },
+        { "id": "aa2554bc0feafcd901868cecab4fd23b", "name": "L" },
+        { "id": "6b06e7ce23f09eed0c68e8a4b990fe4a", "name": "M" },
+        { "id": "a7fbee2c5eaabdb8f3a8e28f4c1c7659", "name": "N" },
+        { "id": "be93f623fe80747afa6776de2d78ac01", "name": "O" },
+        { "id": "d9c81af210fb28320a007f08976bac93", "name": "P" },
+        { "id": "4fcb61321a02b4c24430697650790060", "name": "Q" },
+        { "id": "b9bcbdc1e9d4d6a5f2da3b9139ca04fa", "name": "R" },
+        { "id": "90ab41d2fe413b54471ca0e5e951cbf1", "name": "S" },
+        { "id": "e95116681daeb5eaca87afb5bf8b6873", "name": "T" },
+        { "id": "52a26d9de4a9557226d94d58abb222a1", "name": "U" },
+        { "id": "491a564cf0b16846c0655eacae946e0e", "name": "V" },
+        { "id": "3a19d07115cd9681c79f895b87c19adc", "name": "W" },
+        { "id": "e726dff6ddbfe9df83d3d54ad9285676", "name": "X" },
+        { "id": "56c1274d53cffa7e74450631f91dfd32", "name": "Y" },
+        { "id": "e947e05c670170f199ffae66ef5ee1d8", "name": "Z" }
+      ]
+    },
+    {
+      "id": "97e3df9f7325b71c027058548363a8ea",
+      "slug": "sort-order",
+      "displayName": "Sort Order",
+      "type": "Number",
+      "isRequired": true,
+      "helpText": "Position of the subject in the source catalog list (1-based). Used to preserve canonical ordering.",
+      "validations": { "format": "integer", "allowNegative": true, "precision": 1 }
+    },
+    {
+      "id": "12b2edc597d867d441b97b3198d92daa",
+      "slug": "external-link",
+      "displayName": "External Link",
+      "type": "Link",
+      "isRequired": true,
+      "helpText": "Full URL to the UT Austin catalog page for this subject (e.g., https://catalog.utexas.edu/general-information/coursesatoz/c-l/).",
+      "validations": null
+    }
+  ],
+  "source": {
+    "indexUrl": "https://catalog.utexas.edu/general-information/coursesatoz/",
+    "itemUrlPattern": "https://catalog.utexas.edu/general-information/coursesatoz/{slug}/",
+    "notes": "Each subject on the index page has a name (e.g., \"Comparative Literature\") and a relative URL slug (e.g., \"c-l\"). The slug uses lowercase letters with hyphens between code parts (e.g., \"a-i\" for \"Artificial Intelligence\", \"acc\" for \"Accounting\")."
+  }
+}

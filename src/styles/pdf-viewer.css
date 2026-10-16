@@ -1,0 +1,78 @@
+/* pdf.js reader — the mobile replacement for <object type="application/pdf">.
+   See src/components/pdfViewer.js. The root also carries whatever classes the
+   original embed had (.pdf-viewer), so Webflow's sizing still drives the box;
+   everything here is layout inside that box. */
+
+.pdfjs-viewer {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--neutral--white, #fff);
+}
+
+.pdfjs-viewer__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex: 0 0 auto;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--border-beige, rgba(0, 0, 0, 0.12));
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.pdfjs-viewer__counter {
+  color: var(--_theme---text-body, currentColor);
+  /* Tabular figures stop the toolbar twitching as the number changes width. */
+  font-variant-numeric: tabular-nums;
+}
+
+.pdfjs-viewer__download {
+  color: var(--_theme---text-heading, currentColor);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+/* The scroll area. min-height:0 is what lets it actually scroll when the
+   embed's class gives .pdfjs-viewer a fixed height; when the height is auto
+   this stays a plain flow container and the page scrolls instead. */
+.pdfjs-viewer__pages {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.75rem;
+  background: var(--neutral--light, #f4f2ee);
+}
+
+/* Placeholder for a page that hasn't rendered yet. JS sets aspect-ratio per
+   page, so the full scroll height is correct before anything is rasterized —
+   no reflow as pages fill in. */
+.pdfjs-viewer__page {
+  position: relative;
+  width: 100%;
+  background: var(--neutral--white, #fff);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.pdfjs-viewer__page + .pdfjs-viewer__page {
+  margin-top: 0.75rem;
+}
+
+/* The canvas is rasterized at device resolution and scaled down to the shell's
+   width here, which is what keeps it sharp on retina screens. */
+.pdfjs-viewer__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pdfjs-viewer__status {
+  margin: 0;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--_theme---text-body, currentColor);
+}

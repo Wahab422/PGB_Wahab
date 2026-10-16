@@ -1,0 +1,42 @@
+/*
+ * The nav's glide highlight (src/global/navbar.js): an empty [data-nav-hover]
+ * pill gliding behind its sibling links. Like the tabs' glide
+ * (src/styles/tabs.css) it squashes and stretches as it travels, and the
+ * links ease into their hover colour (Webflow's) in step rather than
+ * snapping — but snappier, as hover re-aims it at every link the pointer
+ * crosses: a 0.25s slide (set by navbar.js) that starts quickly and eases into
+ * place, the stretch peaking early, while it's moving fastest.
+ */
+[data-nav-hover] ~ a,
+[data-nav-hover] ~ [data-nav-hover-item] {
+  transition: color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Every link the pill is over — the hovered one and those it glides past —
+   takes Webflow's hover colour (.menu-link:hover), quickly, so a white link
+   doesn't vanish on the white pill. A dropdown item colours its label. Not on
+   phones, where the links are the menu's list (src/styles/mobile-menu.css). */
+@media (min-width: 768px) {
+  [data-nav-hover] ~ :is(a, button)[data-nav-hover-under],
+  [data-nav-hover] ~ [data-nav-hover-under] > :first-child,
+  [data-nav-hover] ~ [data-nav-hover-under] > :first-child * {
+    color: var(--black, #000);
+    transition-duration: 0.1s;
+  }
+}
+
+[data-nav-hover-moving] {
+  animation: nav-glide-squash 0.25s ease-out;
+}
+
+@keyframes nav-glide-squash {
+  30% {
+    scale: 1.04 0.9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-nav-hover-moving] {
+    animation: none;
+  }
+}

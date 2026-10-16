@@ -1,0 +1,64 @@
+/* Tab glide indicator — a [data-tabs-btn-glide-toggle] inside a tab list slides
+   to the active tab: a 0.35s ease-in-out slide plus a squash-and-stretch while
+   it travels, with the tab text colour fading in step.
+   src/components/tabs.js sets the --glide-x / --glide-y / --glide-width /
+   --glide-height variables (relative to the glide's parent, made
+   position: relative below); give the element its look (background, radius)
+   on its Webflow class. Override --glide-duration / --glide-ease on the tab
+   list to retime. :where() keeps these rules at zero specificity so Webflow
+   styles win. */
+:where(:has(> [data-tabs-btn-glide-toggle])) {
+  --glide-ease: cubic-bezier(0.65, 0, 0.35, 1);
+  --glide-duration: 0.35s;
+  position: relative;
+  isolation: isolate;
+}
+
+:where(:has(> [data-tabs-btn-glide-toggle])) :where([data-tabs-btn]) {
+  position: relative;
+  z-index: 1;
+  transition: color var(--glide-duration) var(--glide-ease);
+}
+
+[data-tabs-btn-glide-toggle] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: var(--glide-width, 0px);
+  height: var(--glide-height, 0px);
+  transform: translate(var(--glide-x, 0px), var(--glide-y, 0px));
+  transition:
+    transform var(--glide-duration) var(--glide-ease),
+    width var(--glide-duration) var(--glide-ease),
+    height var(--glide-duration) var(--glide-ease),
+    opacity 0.2s ease;
+  pointer-events: none;
+}
+
+[data-tabs-btn-glide-toggle][data-state='hidden'] {
+  opacity: 0;
+}
+
+/* Squash-and-stretch while it travels (tabs.js adds .is-moving on each move
+   between tabs). */
+[data-tabs-btn-glide-toggle].is-moving {
+  animation: tab-glide-squash var(--glide-duration) var(--glide-ease);
+}
+
+@keyframes tab-glide-squash {
+  50% {
+    scale: 1.04 0.9;
+  }
+}
+
+/* No motion for users who ask for it. */
+@media (prefers-reduced-motion: reduce) {
+  :where(:has(> [data-tabs-btn-glide-toggle])) {
+    --glide-duration: 0s;
+  }
+
+  [data-tabs-btn-glide-toggle].is-moving {
+    animation: none;
+  }
+}
