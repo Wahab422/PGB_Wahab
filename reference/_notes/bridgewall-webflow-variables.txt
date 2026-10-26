@@ -1,0 +1,164 @@
+## Colors
+Black [Color] --black :: B=hsla(0, 100.00%, 0.00%, 1.00)
+White [Color] --white :: B=white
+Transparent [Color] --transparent :: B=rgba(255, 255, 255, 0)
+Dark [Color] --dark :: B=#242424
+Black/10 [Color] --black--10 :: B=hsla(0, 0.00%, 0.00%, 0.10)
+Black/20 [Color] --black--20 :: B=hsla(0, 0.00%, 0.00%, 0.20)
+Black/30 [Color] --black--30 :: B=hsla(0, 100.00%, 0.00%, 0.30)
+Black/40 [Color] --black--40 :: B=hsla(0, 100.00%, 0.00%, 0.40)
+Black/50 [Color] --black--50 :: B=hsla(0, 100.00%, 0.00%, 0.50)
+Black/80 [Color] --black--80 :: B=hsla(0, 100.00%, 0.00%, 0.80)
+White/10 [Color] --white--10 :: B=hsla(0, 0.00%, 100.00%, 0.10)
+White/20 [Color] --white--20 :: B=hsla(0, 0.00%, 100.00%, 0.20)
+White/30 [Color] --white--30 :: B=hsla(0, 0.00%, 100.00%, 0.30)
+White/40 [Color] --white--40 :: B=hsla(0, 0.00%, 100.00%, 0.40)
+White/50 [Color] --white--50 :: B=hsla(0, 0.00%, 100.00%, 0.50)
+White/80 [Color] --white--80 :: B=hsla(0, 0.00%, 100.00%, 0.80)
+Grey/50 [Color] --grey--50 :: B=#f6f5f5
+Grey/100 [Color] --grey--100 :: B=rgba(236, 236, 236, 0.93)
+Grey/200 [Color] --grey--200 :: B=#e0e0e0
+Grey/300 [Color] --grey--300 :: B=#c3c0c0
+Grey/800 [Color] --grey--800 :: B=#333231
+Grey/900 [Color] --grey--900 :: B=#202020
+## Theme
+BG/Primary [Color] --_theme---bg--primary :: B=@White Dark=@Dark
+BG/Secondary [Color] --_theme---bg--secondary :: B=@Grey/50 Dark=@Grey/800
+Accent/Primary [Color] --_theme---accent--primary :: B=@Dark Dark=@White
+Accent/Primary Dull [Color] --_theme---accent--primary-dull :: B={"type":"custom","value":"color-mix(in srgb, var(--_theme---accent--primary) 50%, transparent)"} Dark={"type":"custom","value":"color-mix(in srgb, var(--_theme---accent--primary) 50%, transparent)"}
+Accent/Secondary [Color] --_theme---accent--secondary :: B=@Grey/800 Dark=@Grey/300
+Accent/Tertiary [Color] --_theme---accent--tertiary :: B=@Grey/300 Dark=@Grey/300
+Accent/Border [Color] --_theme---accent--border :: B=@Grey/300 Dark=@White/40
+Accent/Border 2 [Color] --_theme---accent--border-2 :: B=@Grey/200 Dark=@Grey/200
+Accent/Disable [Color] --_theme---accent--disable :: B=@Grey/100 Dark=@White/20
+Accent/Disable 2 [Color] --_theme---accent--disable-2 :: B=@Black/80 Dark=@White/80
+Accent/Disable 3 [Color] --_theme---accent--disable-3 :: B=hsla(0, 0.00%, 100.00%, 0.18) Dark=hsla(0, 0.00%, 100.00%, 0.18)
+Accent/Icon Box [Color] --_theme---accent--icon-box :: B=@Black Dark=@White
+Button/BG [Color] --_theme---button--bg :: B=@Black Dark=@White
+Button/Border [Color] --_theme---button--border :: B=@Black Dark=@White
+Button/Text Color [Color] --_theme---button--text-color :: B=@White Dark=@Dark
+Secondary Button/BG [Color] --_theme---secondary-button--bg :: B=@Black/20 Dark=@White/20
+Secondary Button/Border [Color] --_theme---secondary-button--border :: B=@Transparent Dark=@Transparent
+Secondary Button/Text Color [Color] --_theme---secondary-button--text-color :: B=@Dark Dark=@White
+Secondary Button/Hover BG [Color] --_theme---secondary-button--hover-bg :: B=@Black/40 Dark=@White/40
+Secondary Button/Hover Border [Color] --_theme---secondary-button--hover-border :: B=@Transparent Dark=@Transparent
+Secondary Button/Hover Text Color [Color] --_theme---secondary-button--hover-text-color :: B=@Dark Dark=@White
+Outline Button/BG [Color] --_theme---outline-button--bg :: B=@Transparent Dark=@Transparent
+Outline Button/Border [Color] --_theme---outline-button--border :: B=@Black/10 Dark=@White/10
+Outline Button/Text Color [Color] --_theme---outline-button--text-color :: B=@Dark Dark=@White
+## Spacing
+Global [Size] --_spacing---global :: B=0.75rem T=0.75rem L=0.75rem
+Global 2 [Size] --_spacing---global-2 :: B=1.75rem T=1.75rem L=1.5rem
+Grid Margin [Size] --_spacing---grid-margin :: B=@Global T=@Global L=@Global
+Grid Gutter [Size] --_spacing---grid-gutter :: B=0.75rem T=0.75rem L=0.75rem
+160 [Size] --_spacing---160 :: B=10rem T=10rem L=10rem
+100 [Size] --_spacing---100 :: B=6.25rem T=6.25rem L=6.25rem
+80 [Size] --_spacing---80 :: B=5rem T=5rem L=5rem
+64 [Size] --_spacing---64 :: B=4rem T=4rem L=4rem
+48 [Size] --_spacing---48 :: B=3rem T=3rem L=3rem
+32 [Size] --_spacing---32 :: B=2rem T=2rem L=2rem
+24 [Size] --_spacing---24 :: B=1.5rem T=1.5rem L=1.5rem
+20 [Size] --_spacing---20 :: B=1.25rem T=1.25rem L=1.25rem
+16 [Size] --_spacing---16 :: B=1rem T=1rem L=1rem
+14 [Size] --_spacing---14 :: B=0.875rem T=0.875rem L=0.875rem
+12 [Size] --_spacing---12 :: B=0.75rem T=0.75rem L=0.75rem
+10 [Size] --_spacing---10 :: B=0.625rem T=0.625rem L=0.625rem
+8 [Size] --_spacing---8 :: B=0.5rem T=0.5rem L=0.5rem
+6 [Size] --_spacing---6 :: B=0.375rem T=0.375rem L=0.375rem
+5 [Size] --_spacing---5 :: B=0.3125rem T=0.3125rem L=0.3125rem
+4 [Size] --_spacing---4 :: B=0.25rem T=0.25rem L=0.25rem
+2 [Size] --_spacing---2 :: B=0.125rem T=0.125rem L=0.125rem
+None [Size] --_spacing---none :: B=0rem T=0rem L=0rem
+Gap/100 [Size] --_spacing---gap--100 :: B=6.25rem T=6.25rem L=6.25rem
+Gap/90 [Size] --_spacing---gap--90 :: B=5.625rem T=5.625rem L=3.75rem
+Gap/80 [Size] --_spacing---gap--80 :: B=5rem T=5rem L=3.75rem
+Gap/64 [Size] --_spacing---gap--64 :: B=4rem T=4rem L=3rem
+Gap/48 [Size] --_spacing---gap--48 :: B=3rem T=3rem L=3rem
+Gap/32 [Size] --_spacing---gap--32 :: B=2rem T=2rem L=2rem
+Gap/24 [Size] --_spacing---gap--24 :: B=1.5rem T=1.5rem L=1.5rem
+Gap/18 [Size] --_spacing---gap--18 :: B=1.125rem T=1.125rem L=1.125rem
+Gap/16 [Size] --_spacing---gap--16 :: B=1rem T=1rem L=1rem
+Gap/12 [Size] --_spacing---gap--12 :: B=0.75rem T=0.75rem L=0.75rem
+Section/160 [Size] --_spacing---section--160 :: B=10rem T=5rem L=3.75rem
+Section/80 [Size] --_spacing---section--80 :: B=5rem T=5rem L=2.75rem
+Section/64 [Size] --_spacing---section--64 :: B=4rem T=4rem L=2.75rem
+Section/48 [Size] --_spacing---section--48 :: B=3rem T=3rem L=2.75rem
+Section/32 [Size] --_spacing---section--32 :: B=2rem T=2rem L=2rem
+Section/24 [Size] --_spacing---section--24 :: B=1.5rem T=1.5rem L=1.5rem
+Section/10 [Size] --_spacing---section--10 :: B=0.625rem T=0.625rem L=0.625rem
+## Radius
+Round [Percentage] --_border-radius---round :: B=100 L=100
+32 [Size] --_border-radius---32 :: B=2rem L=1.5rem
+24 [Size] --_border-radius---24 :: B=1.5rem L=1.25rem
+16 [Size] --_border-radius---16 :: B=1rem L=0.75rem
+12 [Size] --_border-radius---12 :: B=0.75rem L=0.5rem
+8 [Size] --_border-radius---8 :: B=0.5rem L=0.5rem
+6 [Size] --_border-radius---6 :: B=0.375rem L=0.375rem
+4 [Size] --_border-radius---4 :: B=0.25rem L=0.25rem
+3 [Size] --_border-radius---3 :: B=0.1875rem L=0.1875rem
+2 [Size] --_border-radius---2 :: B=0.125rem L=0.125rem
+None [Size] --_border-radius---none :: B=0px L=0px
+## Other
+Container - 1280px [Size] --_other---container-1280px :: B=80rem T=80rem L=80rem
+Navbar Height [Size] --_other---navbar-height :: B=5.125rem T=5.125rem L=3.87125rem
+Blur/20 [Size] --_other---blur--20 :: B=20px T=20px L=20px
+Blur/3 [Size] --_other---blur--3 :: B=3px T=3px L=3px
+## Typo
+Display [Size] --_typo---display :: B=5rem T=3.375rem L=3rem
+H1 - Big [Size] --_typo---h1-big :: B=3.375rem T=2.5rem L=2.5rem
+H1 [Size] --_typo---h1 :: B=2.5rem T=2.5rem L=2.5rem
+H2 [Size] --_typo---h2 :: B=1.5rem T=1.5rem L=1.5rem
+H3 [Size] --_typo---h3 :: B=1.5rem T=3rem L=1.5rem
+H4 [Size] --_typo---h4 :: B=1.25rem T=2rem L=1.5rem
+H5 [Size] --_typo---h5 :: B=1.25rem T=1.25rem L=1.25rem
+H6 [Size] --_typo---h6 :: B=1.25rem T=1.25rem L=1.125rem
+Body/Regular [Size] --_typo---body--regular :: B=1rem T=1rem L=1rem
+Body/Small [Size] --_typo---body--small :: B=0.6875rem T=0.6875rem L=0.6875rem
+Body/Large [Size] --_typo---body--large :: B=1.25rem T=1.25rem L=1.25rem
+Other/Eyebrow [Size] --_typo---other--eyebrow :: B=0.75rem T=0.75rem L=0.75rem
+Other/Button [Size] --_typo---other--button :: B=0.75rem T=0.75rem L=0.75rem
+line-height/Display [Number] --_typo---line-height--display :: B=0.9 T=0.9 L=0.9
+line-height/H1 - Big [Number] --_typo---line-height--h1-big :: B=1 T=1 L=1
+line-height/H1 [Number] --_typo---line-height--h1 :: B=1.18 T=1.18 L=1.18
+line-height/H2 [Number] --_typo---line-height--h2 :: B=1 T=1 L=1
+line-height/H3 [Number] --_typo---line-height--h3 :: B=1 T=1 L=1
+line-height/H4 [Number] --_typo---line-height--h4 :: B=1.1 T=1.1 L=1.1
+line-height/H5 [Number] --_typo---line-height--h5 :: B=1.35 T=1.35 L=1.35
+line-height/H6 [Number] --_typo---line-height--h6 :: B=1.1 T=1.1 L=1.1
+line-height/Regular [Number] --_typo---line-height--regular :: B=1.25 T=1.25 L=1.25
+line-height/Small [Number] --_typo---line-height--small :: B=1.25 T=1.25 L=1.25
+line-height/Large [Number] --_typo---line-height--large :: B=1.25 T=1.25 L=1.25
+line-height/Eyebrow [Number] --_typo---line-height--eyebrow :: B=1.1 T=1.1 L=1.1
+line-height/Button [Number] --_typo---line-height--button :: B=0.9 T=0.9 L=0.9
+font-weight/Display [Number] --_typo---font-weight--display :: B=400 T=400 L=400
+font-weight/H1 [Number] --_typo---font-weight--h1 :: B=400 T=400 L=400
+font-weight/H1 - Big [Number] --_typo---font-weight--h1-big :: B=400 T=400 L=400
+font-weight/H2 [Number] --_typo---font-weight--h2 :: B=400 T=400 L=400
+font-weight/H3 [Number] --_typo---font-weight--h3 :: B=400 T=400 L=400
+font-weight/H4 [Number] --_typo---font-weight--h4 :: B=400 T=400 L=400
+font-weight/H5 [Number] --_typo---font-weight--h5 :: B=400 T=400 L=400
+font-weight/H6 [Number] --_typo---font-weight--h6 :: B=400 T=400 L=400
+font-weight/Regular [Number] --_typo---font-weight--regular :: B=400 T=400 L=400
+font-weight/Small [Number] --_typo---font-weight--small :: B=400 T=400 L=400
+font-weight/Large [Number] --_typo---font-weight--large :: B=400 T=400 L=400
+font-weight/Eyebrow [Number] --_typo---font-weight--eyebrow :: B=500 T=500 L=500
+font-weight/Button [Number] --_typo---font-weight--button :: B=400 T=400 L=400
+letter-spacing/Display [Size] --_typo---letter-spacing--display :: B=-0.4rem T=-0.4rem L=-0.16rem
+letter-spacing/H1 - Big [Size] --_typo---letter-spacing--h1-big :: B=-0.10125rem T=-0.10125rem L=-0.10125rem
+letter-spacing/H1 [Size] --_typo---letter-spacing--h1 :: B=-0.075rem T=-0.075rem L=-0.075rem
+letter-spacing/H2 [Size] --_typo---letter-spacing--h2 :: B=-0.06rem T=-0.06rem L=-0.0675rem
+letter-spacing/H3 [Size] --_typo---letter-spacing--h3 :: B=-0.06rem T=-0.06rem L=-0.0525rem
+letter-spacing/H4 [Size] --_typo---letter-spacing--h4 :: B=-0.06rem T=-0.06rem L=-0.03rem
+letter-spacing/H5 [Size] --_typo---letter-spacing--h5 :: B=-0.025rem T=-0.025rem L=-0.025rem
+letter-spacing/H6 [Size] --_typo---letter-spacing--h6 :: B=-0.025rem T=-0.025rem L=-0.025rem
+letter-spacing/Regular [Size] --_typo---letter-spacing--regular :: B=-0.01875rem T=-0.01875rem L=-0.01875rem
+letter-spacing/Small [Size] --_typo---letter-spacing--small :: B=-0.0225rem T=-0.0225rem L=-0.0225rem
+letter-spacing/Large [Size] --_typo---letter-spacing--large :: B=-0.025rem T=-0.025rem L=-0.025rem
+letter-spacing/Eyebrow [Size] --_typo---letter-spacing--eyebrow :: B=0.0625rem T=0.0625rem L=0.0625rem
+letter-spacing/Button [Size] --_typo---letter-spacing--button :: B=0.0625rem T=0.0625rem L=0.0625rem
+## TextStyle
+font-family [FontFamily] --_text-style---font-family :: B=Suisseintltrial Display=Suisseintltrial H1=Suisseintltrial H2=Suisseintltrial H3=Suisseintltrial H4=Suisseintltrial H5=Suisseintltrial H6=Suisseintltrial Small=Suisseintltrial Large=Suisseintltrial Chip=Jetbrainsmono Button=Jetbrainsmono H1Big=Suisseintltrial
+font-size [Size] --_text-style---font-size :: B=@Body/Regular Display=@Display H1=@H1 H2=@H2 H3=@H3 H4=@H4 H5=@H5 H6=@H6 Small=@Body/Small Large=@Body/Large Chip=@Other/Eyebrow Button=@Other/Button H1Big=@H1 - Big
+line-height [Number] --_text-style---line-height :: B=@line-height/Regular Display=@line-height/Display H1=@line-height/H1 H2=@line-height/H2 H3=@line-height/H3 H4=@line-height/H4 H5=@line-height/H5 H6=@line-height/H6 Small=@line-height/Small Large=@line-height/Large Chip=@line-height/Eyebrow Button=@line-height/Button H1Big=@line-height/H1 - Big
+font-weight [Number] --_text-style---font-weight :: B=@font-weight/Regular Display=@font-weight/Display H1=@font-weight/H1 H2=@font-weight/H2 H3=@font-weight/H3 H4=@font-weight/H4 H5=@font-weight/H5 H6=@font-weight/H6 Small=@font-weight/Small Large=@font-weight/Large Chip=@font-weight/Eyebrow Button=@font-weight/Button H1Big=@font-weight/H1 - Big
+letter-spacing [Size] --_text-style---letter-spacing :: B=@letter-spacing/Regular Display=@letter-spacing/Display H1=@letter-spacing/H1 H2=@letter-spacing/H2 H3=@letter-spacing/H3 H4=@letter-spacing/H4 H5=@letter-spacing/H5 H6=@letter-spacing/H6 Small=@letter-spacing/Small Large=@letter-spacing/Large Chip=@letter-spacing/Eyebrow Button=@letter-spacing/Button H1Big=@letter-spacing/H1 - Big

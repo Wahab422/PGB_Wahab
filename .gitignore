@@ -39,6 +39,7 @@ scratch/
 
 docs/*
 !docs/resources-guide.md
+!docs/design-system.md
 examples/
 .codex
 .agents/
